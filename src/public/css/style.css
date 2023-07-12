@@ -1,0 +1,26 @@
+body{
+    background-color: gainsboro;
+    height: 100%;
+}
+.wrapper {
+  height: 705px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cores{
+  color: white;
+}
+
+#cores{
+  background-color: gray;
+  --bs-navbar-padding-x: none;
+  --bs-navbar-padding-y: none;
+
+}
+
+.jog{
+  margin-top: auto;
+  color: white;
+  background-color: gray;
+}
