@@ -3,13 +3,16 @@ body{
     height: 100%;
 }
 .wrapper {
-  height: 705px;
   display: flex;
   flex-direction: column;
 }
 
 .cores{
   color: white;
+}
+
+.coreshero{
+  background-color: gray;
 }
 
 #cores{

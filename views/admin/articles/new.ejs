@@ -6,19 +6,27 @@
        <div class="container">
         <div class="card">
             <div class="card-header">
-                <h2>Novo de artigos</h2>
+                <h2>Novo artigo</h2>
             </div>
             <div class="card-body" >
-                <form method="post" action="/categories/save">
-                     <input class="form-control" type="text" name="title" placeholder="Defina o título do artigo">
-                     <br><textarea class="form-control" placeholder="Escreva seu artigo aqui!!" name="body" id="article"></textarea>
-                     <br><button class="btn btn-success">Cadastrar</button>
+                <form method="post" action="/articles/save">
+                    <input class="form-control" type="text" name="title" placeholder="Defina o título do artigo">
+                    <br><textarea class="form-control" placeholder="Escreva seu artigo aqui!!" name="body" id="article"></textarea>
+                    <br>
+                    <label>Categorias</label> 
+                    <select name="category" class="form-control">
+                        <% categories.forEach((category) =>{ %>
+                            <option value="<%= category.id %>"><%= category.title %></option>
+                        <% }) %>
+                    </select>
+                    <br><button class="btn btn-success">Cadastrar</button>
                 </form>
+                
                 
             </div>
         </div>
     </div>
-    <br>
+    
         <%- include("../../partials/footer.ejs") %>
     </div>
 </body>
