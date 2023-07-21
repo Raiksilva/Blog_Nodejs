@@ -5,21 +5,28 @@
         
         <div class="container">
             <hr>
-            <div class="hero coreshero text-white text-center py-5">
+            <div class="hero coreshero text-white text-center py-5" style="border-radius: 7px;">
                 <h1 class="display-4">Bem-vindo ao Meu Site</h1>
                 <p class="lead">Este é um exemplo de destaque personalizado usando Bootstrap 5.3.</p>
             </div>  
-            <% articles.forEach(article => { %>
-                <div class="card">
+            <% articles.forEach(articles => { %>
+               
+               <div class="card">
                     <div class="card-header">
-                        <h2><%= article.title %></h2>
+                        <h2><%= articles.title %></h2>
                     </div>
                     <div class="card-body">
-                        <a href="<%= article.slug %>" class="btn btn-success">Ler artigo</a>
+                        <a href="<%= articles.slug %>" class="btn btn-success">Ler artigo</a>
                     </div>
                 </div>
                 <br>
             <% }); %>
+            <div class="row">
+                <div class="col col-12">
+                    <a href="/articles/page/2" style="float: right;">Proximo</a>
+                </div>
+            </div>
+            <br>
         </div>
     <%- include("partials/footer.ejs") %>
     </div>   

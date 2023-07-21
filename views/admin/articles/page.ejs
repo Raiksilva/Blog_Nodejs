@@ -1,0 +1,30 @@
+<%- include("../../partials/header.ejs") %>
+<body>
+    <%- include("../../partials/homenavbar.ejs") %> 
+    <div class="wrapper">
+        
+        <div class="container">
+            <hr>
+            <% result.articles.rows.forEach(articles => { %>
+                <div class="card">
+                    <div class="card-header">
+                        <h2><%= articles.title %></h2>
+                    </div>
+                    <div class="card-body">
+                        <a href="<%= articles.slug %>" class="btn btn-success">Ler artigo</a>
+                    </div>
+                </div>
+                <br>
+            <% }); %>
+            <div class="row">
+                <div class="col col-12">
+                    <a href="/articles/page/" style="float: right;">Proximo</a>   
+                    <a href="/" style="float: left;">voltar</a>   
+                </div>
+            </div>
+            <br>
+        </div>
+    <%- include("../../partials/footer.ejs") %>
+    </div>   
+</body>
+<%- include("../../partials/footerScript.ejs") %>
