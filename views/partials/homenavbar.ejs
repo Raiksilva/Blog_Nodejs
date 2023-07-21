@@ -3,14 +3,38 @@
         GuiaPress
     </a>
 
-    <ul class="navbar-nav  me-auto">
+    <ul class="navbar-nav me-auto">
         <li class="nav-item">
             <a class="nav-link" href="/admin/categories/">home</a>
         </li>
-        <% categories.forEach(category => {%>
-        <li class="nav-item">
-            <a class="nav-link" href="/admin/categories/"><%= category.title %></a>
-        </li>
-        <% }); %>
     </ul>
+
+    <div class="ms-auto" style="margin-right: 4px;">
+        <select name="category" id="categorySelect" class="form-control" style="height: 34px;">
+            <option value="/">Todas as categorias</option>
+            <% categories.forEach(category => {%>
+                <option value="/category/<%= category.slug %>"><%= category.title %></option>
+            <% }); %>
+        </select>
+    </div>
 </nav>
+
+<script>
+    // Função para redirecionar com base na seleção do <select>
+    document.getElementById("categorySelect").addEventListener("change", function() {
+      const selectedCategory = this.value;
+      window.location.href = selectedCategory; // Redireciona para a categoria selecionada
+    });
+  
+    // Define a categoria selecionada no carregamento da página
+    const currentURL = window.location.pathname;
+    const selectElement = document.getElementById("categorySelect");
+    const options = selectElement.options;
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].value === currentURL) {
+        selectElement.selectedIndex = i;
+        break;
+      }
+    }
+  </script>
+  
