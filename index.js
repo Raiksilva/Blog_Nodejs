@@ -1,11 +1,16 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const session = require("express-session");
+
 const connection =require("./models/database");
 const Article = require("./models/Article");
 const Category = require("./models/Category");
+const Users = require("./models/Users");
+
 const categoriesController = require("./controller/categories/CategoriesController");
 const articlersController = require("./controller/articles/ArticlesController");
+const adminController = require("./controller/admin/AdminController");
 
 
 //Database
@@ -20,6 +25,12 @@ connection
 //view engine
 app.set("view engine", "ejs");
 
+//Sessions
+app.use(session({
+    secret: "Clacketyclankblipzorpwizzbopflutterglint", 
+    cookie: { maxAge: 300000}
+}));
+
 //public
 app.use(express.static('public'));
 
@@ -27,10 +38,10 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-
+// Definindo que queremos usar os controllers
 app.use("/", categoriesController);
-
 app.use("/", articlersController);
+app.use("/", adminController);
 
 //rotas
 app.get("/", (req, res) =>{
