@@ -9,7 +9,7 @@
                 <h2>Novo artigo</h2>
             </div>
             <div class="card-body" >
-                <form method="post" action="/articles/save">
+                <form method="post" action="/articles/save" style="display: inline;">
                     <input class="form-control" type="text" name="title" placeholder="Defina o título do artigo">
                     <br><textarea class="form-control" placeholder="Escreva seu artigo aqui!!" name="body" id="article"></textarea>
                     <br>
@@ -21,12 +21,12 @@
                     </select>
                     <br><button class="btn btn-success">Cadastrar</button>
                 </form>
-                
-                
+                <form method="post" action="/articles/back" style="float: right; display: inline;">
+                    <button class="btn btn-warning">Voltar</button>
+                </form>                  
             </div>
         </div>
     </div>
-        <hr>
         <%- include("../../partials/footer.ejs") %>
     </div>
 </body>
