@@ -27,12 +27,14 @@
                         <% }) %>
                     </select>
                     <br><button class="btn btn-success">Atualizar</button>
-                </form>               
+                    <form method="post" action="/articles/back">
+                        <button class="btn btn-warning" style="float: right;">Voltar</button>
+                    </form>  
+                </form>  
+                           
             </div>
         </div>
     </div>
-        
-        <hr>
         <%- include("../../partials/footer.ejs") %>
     </div>
 </body>
