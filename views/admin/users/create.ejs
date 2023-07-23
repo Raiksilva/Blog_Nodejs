@@ -1,0 +1,34 @@
+    <%- include("../../partials/header.ejs") %>
+<body>
+    <%- include("../../partials/navbar.ejs") %>
+    <div class="wrapper">
+        <hr>
+        <div class="container ">
+            <div class="card">
+                <card class="card-header">
+                    <h2>Cadastro de usuários</h2>
+                </card>
+                <div class="card-body">
+                    <form method="post" action="/admin/save"> 
+                        <input class="form-control" name="email" type="email" placeholder="email@exemplo.com">
+                        <br>
+                        <input class="form-control" name="password" type="password" placeholder="senha">
+                        <br>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-success">Cadastrar</button>
+                            </div>
+                            <br>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <form method="post" action="/admin/back">
+                                    <a href="/admin/users" class="btn btn-warning" style="float: right;">Voltar</a>
+                                </form>
+                            </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    <%- include("../../partials/footer.ejs") %>    
+    </div>
+</body>
+<%- include("../../partials/footerScript.ejs") %>
