@@ -8,6 +8,11 @@
                     <h2>Login administrativo</h2>
                 </card>
                 <div class="card-body">
+                    <% if(errorMessage) {%>
+                        <div class="alert alert-danger">
+                            <%= errorMessage %>
+                        </div>
+                        <% } %>
                     <form method="post" action="/authenticate"> 
                         <input class="form-control" name="email" type="email" placeholder="email@exemplo.com">
                         <br>

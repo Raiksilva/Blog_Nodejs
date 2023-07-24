@@ -9,6 +9,11 @@
                     <h2>Cadastro de usuários</h2>
                 </card>
                 <div class="card-body">
+                    <% if(errorMessage) {%>
+                    <div class="alert alert-danger">
+                        <%= errorMessage %>
+                    </div>
+                    <% } %>
                     <form method="post" action="/admin/save"> 
                         <input class="form-control" name="email" type="email" placeholder="email@exemplo.com">
                         <br>
