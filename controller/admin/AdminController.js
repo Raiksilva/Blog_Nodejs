@@ -13,7 +13,7 @@ router.get("/admin/users", adminAuth,(req, res) =>{
 });
 
 router.get("/admin/users/create", adminAuth,(req, res) =>{
-    res.render("admin/users/create");
+    res.render("admin/users/create", {errorMessage: req.query.error });
 });
 
 
@@ -28,8 +28,8 @@ router.post("/admin/save", adminAuth,(req, res) => {
     Users.findOne({
         where:{email: email}
     }).then( user => {
-        if(user == undefined){
-
+        if(user == undefined){ // Verifica se o e-mail não é undefined e não é uma string vazia após remover espaços em branco.
+            if (password !== undefined && password.trim() !== "") { // Verifica se a senha não é undefined e não é uma string vazia após remover espaços em branco.
             let salt = bcrypt.genSaltSync(10);
             let hash = bcrypt.hashSync(password, salt);
         
@@ -37,22 +37,22 @@ router.post("/admin/save", adminAuth,(req, res) => {
                 email: email,
                 password: hash
             }).then( () => {
-                res.redirect("/");
+                res.redirect("/admin/users");
             }).catch((err) =>{
-                res.redirect("/");
+                res.redirect("/admin/users/create?error=E-mail campo do E-mail não pode está vazio!");
             });
-
+            }else{
+                res.redirect("/admin/users/create?error=E-mail campo da senha não pode está vazio!");
+            }
         }else{
-            res.redirect("/admin/users/create");
+            res.redirect("/admin/users/create?error=Este e-mail já foi cadastrado, insira outro e-mail!");
         }
     });
-
-
 });
 
 router.get("/login",(req, res) =>{
     
-    res.render("admin/users/login");
+    res.render("admin/users/login",{errorMessage: req.query.error});
          
 });
 
@@ -73,10 +73,10 @@ router.post("/authenticate", (req, res) =>{
                 }
                 res.redirect("/admin/categories");
             }else{
-                res.redirect("login");
+                res.redirect("login?error=E-mail ou senha incorretos!");
             }
         }else{
-            res.redirect("login");
+            res.redirect("login?error=E-mail ou senha incorretos!");
         }
     });
 });
