@@ -6,20 +6,24 @@ const adminAuth = require("../../middlewares/adminAuth");
 
 
 router.get("/admin/categories/new", adminAuth,(req, res) =>{
-    res.render("admin/categories/new");
+    res.render("admin/categories/new", { errorMessage: req.query.error });
 });
 
 router.post("/categories/save", adminAuth,(req, res) =>{
     let title = req.body.title;
+
     if(title != undefined){
         Category.create({
             title: title,
             slug: slugify(title)
         }).then(() => {
             res.redirect("/admin/categories");
+        }).catch((err) =>{
+            console.log(err);
+            res.redirect("/admin/categories/new?error=Erro ao salvar a categoria!");
         });
     }else{
-        res.redirect("/admin/categories/new")
+        res.redirect("/admin/categories/new?error=A categoria não pode está vazia!")
     }
 });
 
