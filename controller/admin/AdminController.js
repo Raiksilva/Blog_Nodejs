@@ -27,7 +27,7 @@ router.post("/admin/save", adminAuth,(req, res) => {
 
     Users.findOne({
         where:{email: email}
-    }).then( user => {
+    }).then(user => {
         if(user == undefined){ // Verifica se o e-mail não é undefined e não é uma string vazia após remover espaços em branco.
             if (password !== undefined && password.trim() !== "") { // Verifica se a senha não é undefined e não é uma string vazia após remover espaços em branco.
             let salt = bcrypt.genSaltSync(10);
@@ -62,7 +62,9 @@ router.post("/authenticate", (req, res) =>{
     let password = req.body.password;
 
     Users.findOne({where:{email:email}}).then(user =>{
-        if(user != undefined){
+        if(!email && !password){
+            res.redirect("login?error=Prenchar os campos do e-mail e senha!");
+        }else if(user != undefined){
             //validação de senha 
             let correct = bcrypt.compareSync(password, user.password);
 

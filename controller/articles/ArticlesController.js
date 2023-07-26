@@ -7,7 +7,7 @@ const { json } = require("body-parser");
 const adminAuth = require("../../middlewares/adminAuth");
 
 
-router.get("/admin/articles", adminAuth,(req, res) => {
+router.get("/admin/articles", adminAuth, (req, res) => {
     Article.findAll({
         include: [{model: Category}]
     }).then(articles => {
@@ -15,33 +15,45 @@ router.get("/admin/articles", adminAuth,(req, res) => {
     });
 });
 
-router.get("/admin/articles/new", adminAuth,(req ,res) => {
+router.get("/admin/articles/new", adminAuth, (req ,res) => {
     Category.findAll({
         order: [
             ['title', 'ASC']
         ]
     }).then(categories => {
-        res.render("admin/articles/new",{categories: categories})
+        const errorMessage = req.query.error || null;
+        res.render("admin/articles/new",{categories, errorMessage});
     })    
-})
+});
 
-router.post("/articles/save", adminAuth,(req, res) => {
+router.post("/articles/save", adminAuth, (req, res) => {
     let title = req.body.title;
     let body = req.body.body;
     let category = req.body.category;
 
-    Article.create({
-        title: title,
-        slug: slugify(title),
-        body: body,
-        categoryId: category
-    }).then(() => {
-        res.redirect("/admin/articles");
-    });
+    if(!body && !title){
+        res.redirect("/admin/articles/new?error=O título e corpo do artigo não podem estar vazio!");
+    }else if(!title){
+        res.redirect("/admin/articles/new?error=O título do artigo não pode estar vazio!");
+    }
+    else if(!body){
+        res.redirect("/admin/articles/new?error=O corpo do artigo não pode estar vazio!");
+    }else{
+        Article.create({
+            title: title,
+            slug: slugify(title),
+            body: body,
+            categoryId: category
+        }).then(() => {
+            res.redirect("/admin/articles");
+        }).catch((err) =>{
+           res.redirect("/admin/articles/new?error=Ocorreu um erro ao tentar criar o artigo!");
+        });
+    }
 });
 
 
-router.post("/articles/delete", adminAuth,(req, res) => {
+router.post("/articles/delete", adminAuth, (req, res) => {
     let id = req.body.id;
     if(id != undefined){
         if(!isNaN(id)){
@@ -60,11 +72,11 @@ router.post("/articles/delete", adminAuth,(req, res) => {
     }
 });
 
-router.post("/articles/back", adminAuth,(req, res) =>{
+router.post("/articles/back", adminAuth, (req, res) =>{
     res.redirect("/admin/articles");
 });
 
-router.get("/admin/articles/edit/:id", adminAuth,(req, res) =>{
+router.get("/admin/articles/edit/:id",  adminAuth, (req, res) =>{
     let id = req.params.id;
 
     if(isNaN(id)){
@@ -88,7 +100,7 @@ router.get("/admin/articles/edit/:id", adminAuth,(req, res) =>{
     });
 });
 
-router.post("/articles/update", adminAuth,(req, res) =>{
+router.post("/articles/update", adminAuth, (req, res) =>{
     let id =  req.body.id;
     let title = req.body.title;
     let body = req.body.body;
@@ -101,11 +113,11 @@ router.post("/articles/update", adminAuth,(req, res) =>{
     }).then(() =>{
         res.redirect("/admin/articles");
     }).catch(err => {
-        res.redirect("/")
+        res.redirect("/");
     });
 });
 
-router.get("/articles/page/:num",(req, res) => {
+router.get("/articles/page/:num", (req, res) => {
     let page = parseInt(req.params.num);
     let offset = 0;
 
@@ -136,7 +148,7 @@ router.get("/articles/page/:num",(req, res) => {
             articles : articles
         }
         Category.findAll().then(categories =>{
-           res.render("admin/articles/page", {result: result, categories: categories}) 
+           res.render("admin/articles/page", {result: result, categories: categories});
         });
     });
 });
