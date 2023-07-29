@@ -1,40 +1,65 @@
-<nav class="navbar navbar-expand-lg navbar-light" id="cores">
-    <a class="navbar-brand cores" href="/">
-        GuiaPress
-    </a>
-
-    <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-            <a class="nav-link" href="/login">Entrar</a>
-        </li>
-    </ul>
-
-    <div class="ms-auto" style="margin-right: 4px;">
-        <select name="category" id="categorySelect" class="form-control" style="height: 34px;">
-            <option value="/">Todas as categorias</option>
-            <% categories.forEach(category => {%>
-                <option value="/category/<%= category.slug %>"><%= category.title %></option>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="cores">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">GuiaPress</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavDarkDropdown"
+      aria-controls="navbarNavDarkDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item dropdown">
+          <button
+            class="btn btn-dark dropdown-toggle"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Categorias
+          </button>
+          <ul class="dropdown-menu dropdown-menu-dark" id="categorySelect">
+            <li><a class="dropdown-item" href="/">Todas as categorias</a></li>
+            <% categories.forEach(category => { %>
+            <li>
+              <a class="dropdown-item" href="/category/<%= category.slug %>"
+                ><%= category.title %></a
+              >
+            </li>
             <% }); %>
-        </select>
+          </ul>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Entrar</a>
+        </li>
+      </ul>
     </div>
+  </div>
 </nav>
 
 <script>
-    // Função para redirecionar com base na seleção do <select>
-    document.getElementById("categorySelect").addEventListener("change", function() {
+  // Função para redirecionar com base na seleção do <select>
+  document
+    .getElementById("categorySelect")
+    .addEventListener("change", function () {
       const selectedCategory = this.value;
       window.location.href = selectedCategory; // Redireciona para a categoria selecionada
     });
-  
-    // Define a categoria selecionada no carregamento da página
-    const currentURL = window.location.pathname;
-    const selectElement = document.getElementById("categorySelect");
-    const options = selectElement.options;
-    for (let i = 0; i < options.length; i++) {
-      if (options[i].value === currentURL) {
-        selectElement.selectedIndex = i;
-        break;
-      }
+
+  // Define a categoria selecionada no carregamento da página
+  const currentURL = window.location.pathname;
+  const selectElement = document.getElementById("categorySelect");
+  const options = selectElement.getElementsByTagName("a");
+  for (let i = 0; i < options.length; i++) {
+    if (options[i].getAttribute("href") === currentURL) {
+      options[i].classList.add("active"); // Adiciona a classe "active" para realçar a categoria selecionada
+      break;
     }
-  </script>
-  
+  }
+</script>

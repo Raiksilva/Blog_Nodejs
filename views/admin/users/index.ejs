@@ -1,32 +1,40 @@
 <%- include("../../partials/header") %>
 <body>
-    <%- include("../../partials/navbar") %>
-    
-    <div class="wrapper">
-        <hr>
-        <div class="container">
-            <h2>Usuários</h2>
-            <a class="btn btn-success" href="/admin/users/create">Criar novo usuário</a>
-            <hr>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>E-mail</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% users.forEach(users => { %>
-                        <tr>
-                            <td><%= users.id %></td>
-                            <td><%= users.email %></td>
-                        </tr>
-                    <% }) %>
-                </tbody>
-            </table>
+  <%- include("../../partials/navbar") %>
+
+  <div class="wrapper">
+    <hr />
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12 text-center">
+          <h2 style="color: white">Usuários</h2>
         </div>
-        
-        <%- include("../../partials/footer") %>
+        <a class="btn btn-success w-auto" href="/admin/users/create"
+          >Criar novo usuário</a
+        >
+        <hr />
+        <div class="w-auto p-3">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th style="background-color: #0a0822; color: white">ID</th>
+                <th style="background-color: #0a0822; color: white">E-mail</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% users.forEach(users => { %>
+              <tr>
+                <td class="bg-dark" style="color: white"><%= users.id %></td>
+                <td class="bg-dark" style="color: white"><%= users.email %></td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
+
+    <%- include("../../partials/footer") %>
+  </div>
 </body>
 <%- include("../../partials/footerScript") %>

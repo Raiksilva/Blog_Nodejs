@@ -1,0 +1,54 @@
+<%- include("../../partials/header.ejs") %>
+<body>
+  <%- include("../../partials/navbar.ejs") %>
+  <div class="wrapper">
+    <hr />
+    <div class="container">
+      <div class="card">
+        <div class="card-header" style="background-color: #0a0822">
+          <h2 style="color: white"><%= categories.title %></h2>
+        </div>
+        <div class="card-body bg-dark">
+          <div class="col-12 text-center">
+            <h3 style="color: white">Slug: <%= categories.slug %></h3>
+          </div>
+
+          <div class="d-grid gap-2">
+            <a
+              href="/admin/categories/edit/<%= categories.id%>"
+              class="btn btn-warning mb-2"
+              >Editar</a
+            >
+          </div>
+          <form
+            method="post"
+            action="/categories/delete"
+            onsubmit="confimarmarDelecao(event, this)"
+          >
+            <input type="hidden" name="id" value="<%= categories.id %>" />
+            <div class="d-grid gap-2">
+              <button class="btn btn-danger mb-2">Deletar</button>
+            </div>
+          </form>
+          <form method="post" action="/categories/back">
+            <div class="d-grid gap-2">
+              <button class="btn btn-light" style="float: right">Voltar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <%- include("../../partials/footer.ejs") %>
+  </div>
+</body>
+<%- include("../../partials/footerScript.ejs") %>
+
+<script>
+  function confimarmarDelecao(event, form) {
+    event.preventDefault();
+    let decision = confirm("Você quer deletar esta categoria?");
+    if (decision) {
+      form.submit();
+    }
+  }
+</script>

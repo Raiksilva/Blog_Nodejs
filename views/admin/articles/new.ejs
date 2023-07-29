@@ -1,63 +1,75 @@
 <%- include("../../partials/header.ejs")%>
 <body>
-    <%- include("../../partials/navbar.ejs") %>
-    <div class="wrapper">
-       <hr>
-       <div class="container">
-        <div class="card">
-            <div class="card-header">
-                <h2>Novo artigo</h2>
-            </div>
-            <div class="card-body" >
-                <% if(errorMessage) {%>
-                    <div class="alert alert-danger">
-                        <%= errorMessage %>
-                    </div>
-                    <% } %>
-                <form method="post" action="/articles/save" style="display: inline;">
-                    <input class="form-control" type="text" name="title" placeholder="Defina o título do artigo">
-                    <br><textarea class="form-control" placeholder="Escreva seu artigo aqui!!" name="body" id="article"></textarea>
-                    <br>
-                    <label>Categorias</label> 
-                    <select name="category" class="form-control">
-                        <% categories.forEach((category) =>{ %>
-                            <option value="<%= category.id %>"><%= category.title %></option>
-                        <% }) %>
-                    </select>
-                    <br><button class="btn btn-success">Cadastrar</button>
-                </form>
-                <form method="post" action="/articles/back" style="float: right; display: inline;">
-                    <button class="btn btn-warning">Voltar</button>
-                </form>                  
-            </div>
+  <%- include("../../partials/navbar.ejs") %>
+  <div class="wrapper">
+    <hr />
+    <div class="container">
+      <div class="card">
+        <div class="card-header" style="background-color: #0a0822">
+          <h2 style="color: white">Novo artigo</h2>
         </div>
+        <div class="card-body bg-dark">
+          <% if(errorMessage) {%>
+          <div class="alert alert-danger"><%= errorMessage %></div>
+          <% } %>
+          <form method="post" action="/articles/save" style="display: inline">
+            <input
+              class="form-control"
+              type="text"
+              name="title"
+              placeholder="Defina o título do artigo"
+            />
+            <br /><textarea
+              class="form-control"
+              placeholder="Escreva seu artigo aqui!!"
+              name="body"
+              id="article"
+            ></textarea>
+            <br />
+            <label>Categorias</label>
+            <select name="category" class="form-control">
+              <% categories.forEach((category) =>{ %>
+              <option value="<%= category.id %>"><%= category.title %></option>
+              <% }) %>
+            </select>
+            <br /><button class="btn btn-success">Cadastrar</button>
+          </form>
+          <form
+            method="post"
+            action="/articles/back"
+            style="float: right; display: inline"
+          >
+            <button class="btn btn-light">Voltar</button>
+          </form>
+        </div>
+      </div>
     </div>
-        <%- include("../../partials/footer.ejs") %>
-    </div>
+    <%- include("../../partials/footer.ejs") %>
+  </div>
 </body>
 <%- include("../../partials/footerScript.ejs") %>
 
 <script src="/tinymce/tinymce.min.js"></script>
 <script>
-    tinymce.init({
-        language: "pt_BR",
-        selector: "#article",
-        plugins: [
-        "preview",
-        "advlist",
-        "autolink",
-        "link",
-        "image",
-        "lists",
-        "searchreplace",
-        "wordcount",
-        "fullscreen",
-        "insertdatetime",
-        "media",
-        "save",
-        "table",
-        "emoticons",
-        "code",
-        ]
-    });
+  tinymce.init({
+    language: "pt_BR",
+    selector: "#article",
+    plugins: [
+      "preview",
+      "advlist",
+      "autolink",
+      "link",
+      "image",
+      "lists",
+      "searchreplace",
+      "wordcount",
+      "fullscreen",
+      "insertdatetime",
+      "media",
+      "save",
+      "table",
+      "emoticons",
+      "code",
+    ],
+  });
 </script>

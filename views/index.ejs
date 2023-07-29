@@ -1,33 +1,37 @@
 <%- include("partials/header.ejs") %>
 <body>
-    <%- include("partials/homenavbar.ejs") %> 
-    <div class="wrapper">
-        
-        <div class="container">
-            <hr>
-            <div class="hero coreshero text-white text-center py-5" style="border-radius: 7px;">
-                <h1 class="display-4">Bem-vindo ao Meu Site</h1>
-                <p class="lead">Este é um exemplo de destaque personalizado usando Bootstrap 5.3.</p>
-            </div>  
-            <% articles.forEach(articles => { %>
-               
-               <div class="card">
-                    <div class="card-header">
-                        <h2><%= articles.title %></h2>
-                    </div>
-                    <div class="card-body">
-                        <a href="<%= articles.slug %>" class="btn btn-success">Ler artigo</a>
-                    </div>
-                </div>
-                <br>
-            <% }); %>
-            <div class="row">
-                <div class="col col-12">
-                    <a href="/articles/page/2" style="float: right;">Proximo</a>
-                </div>
-            </div>
+  <%- include("partials/homenavbar.ejs") %>
+  <div class="wrapper">
+    <div class="container">
+      <hr />
+      <div
+        class="hero coreshero text-white text-center py-5 bg-dark"
+        style="border-radius: 7px"
+      >
+        <h1 class="display-4">Bem-vindo ao Meu Site</h1>
+        <p class="lead">
+          Este é um site destinado a auxiliar com dúvidas em questões variadas.
+        </p>
+      </div>
+      <% articles.forEach(articles => { %>
+
+      <div class="card" style="background-color: #0a0822">
+        <div class="card-header">
+          <h2 style="color: white"><%= articles.title %></h2>
         </div>
+        <div class="card-body bg-dark">
+          <a href="/<%= articles.slug %>" class="btn btn-success">Ler artigo</a>
+        </div>
+      </div>
+      <br />
+      <% }); %>
+      <div class="row">
+        <div class="col col-12">
+          <a href="/articles/page/2" style="float: right">Proximo</a>
+        </div>
+      </div>
+    </div>
     <%- include("partials/footer.ejs") %>
-    </div>   
+  </div>
 </body>
 <%- include("partials/footerScript.ejs") %>

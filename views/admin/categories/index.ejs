@@ -1,56 +1,49 @@
 <%- include("../../partials/header") %>
 <body>
+  <div class="wrapper">
     <%- include("../../partials/navbar") %>
-    
-    <div class="wrapper">
-        <hr>
-        <div class="container">
-            
-            <h2>Categorias</h2>
-            <a class="btn btn-success" href="/admin/categories/new">Criar nova categoria</a>
-            <hr>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Título</th>
-                        <th>Slug</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                    <% categories.forEach(category => {%>
-                        <tr>
-                            <th><%= category.id %></th>
-                            <th><%= category.title %></th>
-                            <th><%= category.slug %></th>
-                            <th>
-
-                                <a href="/admin/categories/edit/<%= category.id%>" class="btn btn-warning">
-                                    Editar</a>
-                                
-                                <form method="post" action="/categories/delete" style="display: inline;" onsubmit="confimarmarDelecao(event, this)">
-                                    <input type="hidden" name="id" value="<%= category.id %>">
-                                    <button class="btn btn-danger">Deletar</button>
-                                </form>
-                            </th>
-                        </tr>
-                    <%})%>
-                </tbody>
-            </table>
+    <hr />
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12 text-center">
+          <h2 style="color: white">Categorias</h2>
         </div>
-        <%- include("../../partials/footer") %>
+        <a class="btn btn-success w-auto" href="/admin/categories/new"
+          >Criar nova categoria</a
+        >
+      </div>
+
+      <hr />
+      <div class="col-12">
+        <div class="table-responsive w-auto p-3">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th style="background-color: #0a0822; color: white">ID</th>
+                <th style="background-color: #0a0822; color: white">Título</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% categories.forEach(category => { %>
+              <tr>
+                <td scope="row" class="bg-dark" style="color: white">
+                  <%= category.id %>
+                </td>
+                <td scope="row" class="bg-dark" style="color: white">
+                  <a
+                    style="color: white"
+                    href="/admin/categories/category/<%= category.slug %>"
+                    ><%= category.title %></a
+                  >
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
+    <%- include("../../partials/footer") %>
+  </div>
 </body>
 <%- include("../../partials/footerScript") %>
-
-<script>
-    function confimarmarDelecao(event, form){
-        event.preventDefault();
-        let decision = confirm("Você quer deletar esta categoria?");
-        if(decision){
-            form.submit();
-        }
-    }
-</script>
