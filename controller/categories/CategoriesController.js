@@ -36,7 +36,7 @@ router.post("/categories/save", adminAuth,(req, res) =>{
 router.get("/admin/categories", adminAuth,(req, res) => {
     Category.findAll().then(categories =>{
         res.render("admin/categories/index", {categories: categories});
-    })
+    });
 });
 
 router.post("/categories/delete", adminAuth,(req, res) =>{
@@ -56,6 +56,22 @@ router.post("/categories/delete", adminAuth,(req, res) =>{
     }else{//Null
         res.redirect("/admin/categories");
     }
+});
+
+router.get("/admin/categories/category/:slug", adminAuth,(req,res) => {
+    let slug = req.params.slug;
+
+    Category.findOne({where:{ slug : slug}}).then(categories =>{
+        if(categories != undefined){
+            res.render("admin/categories/category", {categories: categories});
+        }else{
+            res.redirect("/admin/categories");
+        }
+    }).catch(err => {
+        res.redirect("/admin/categories");
+    })
+    
+
 });
 
 router.get("/admin/categories/edit/:id", adminAuth,(req, res) =>{

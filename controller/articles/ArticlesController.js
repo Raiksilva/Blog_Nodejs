@@ -1,10 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const Category = require("../../models/Category");
-const Article = require("../../models/Article");
+
 const slugify = require("slugify");
+
 const { json } = require("body-parser");
 const adminAuth = require("../../middlewares/adminAuth");
+
+const Category = require("../../models/Category");
+const Article = require("../../models/Article");
 
 
 router.get("/admin/articles", adminAuth, (req, res) => {
@@ -12,6 +15,23 @@ router.get("/admin/articles", adminAuth, (req, res) => {
         include: [{model: Category}]
     }).then(articles => {
         res.render("admin/articles/index",{articles: articles})
+    });
+});
+
+router.get("/admin/articles/article/:slug", adminAuth, (req, res) =>{
+    let slug = req.params.slug;
+
+    Article.findOne({where:{
+        slug:slug
+    }}).then(article =>{
+        if(article != undefined){
+                res.render("admin/articles/article", { article: article});
+        }else{
+            res.redirect("/admin/articles/");
+        }
+    }).catch(err =>{
+        res.redirect("/admin/articles/");
+        console.log(err);
     });
 });
 
@@ -23,7 +43,7 @@ router.get("/admin/articles/new", adminAuth, (req ,res) => {
     }).then(categories => {
         const errorMessage = req.query.error || null;
         res.render("admin/articles/new",{categories, errorMessage});
-    })    
+    });
 });
 
 router.post("/articles/save", adminAuth, (req, res) => {
@@ -141,7 +161,6 @@ router.get("/articles/page/:num", (req, res) => {
         }else{
             next = true;
         }
-
         let result ={
             page: page,
             next: next,
